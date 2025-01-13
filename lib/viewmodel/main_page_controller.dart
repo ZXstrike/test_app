@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/model/todo_model.dart';
-import 'package:test_app/view/page/input_page.dart';
+import 'package:test_app/utils/const/route_name.dart';
 
 class MainPageController extends ChangeNotifier {
   List<TodoModel> todoList = [
@@ -17,15 +17,13 @@ class MainPageController extends ChangeNotifier {
   ];
 
   void navigateToInputPage(BuildContext context) {
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => const HalamanInputTodo(),
-      ),
+      RouteName.input,
     ).then(
       (value) {
         if (value != null) {
-          todoList.add(value);
+          todoList.add(value as TodoModel);
           notifyListeners();
         }
       },

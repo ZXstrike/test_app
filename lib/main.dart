@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/utils/const/route_name.dart';
+import 'package:test_app/view/page/input_page.dart';
 import 'package:test_app/view/page/main_page.dart';
 import 'package:test_app/viewmodel/input_page_controller.dart';
 import 'package:test_app/viewmodel/main_page_controller.dart';
@@ -27,9 +29,19 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: SafeArea(
-            child: const HalamanUtama(),
-          ),
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case RouteName.home:
+                return MaterialPageRoute(
+                    builder: (context) => const HalamanUtama());
+              case RouteName.input:
+                return MaterialPageRoute(
+                    builder: (context) => const HalamanInputTodo());
+              default:
+                return MaterialPageRoute(
+                    builder: (context) => const HalamanUtama());
+            }
+          },
         );
       },
     );
