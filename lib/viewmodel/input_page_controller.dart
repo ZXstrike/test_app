@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/model/todo_model.dart';
+import 'package:test_app/utils/db/db.dart';
 
 class InputPageController extends ChangeNotifier {
+  late DatabaseHelper _databaseHelper;
+
+  InputPageController() {
+    _databaseHelper = DatabaseHelper();
+  }
+
   TextEditingController judul = TextEditingController();
   TextEditingController deskripsi = TextEditingController();
 
@@ -12,16 +19,15 @@ class InputPageController extends ChangeNotifier {
   }
 
   void saveDataAndBack(BuildContext context) {
-    print('Judul: ${judul.text}');
-    print('Deskripsi: ${deskripsi.text}');
-    Navigator.pop(
-      context,
-      TodoModel(
-        title: judul.text,
-        description: deskripsi.text,
-        isDone: false,
-      ),
+    final TodoModel todo = TodoModel(
+      title: judul.text,
+      description: deskripsi.text,
+      isDone: false,
     );
+
+    _databaseHelper.insertTodo(todo);
+
+    Navigator.pop(context);
 
     clearText();
   }

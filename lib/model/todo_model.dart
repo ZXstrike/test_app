@@ -16,7 +16,7 @@ class TodoModel {
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      isDone: json['isDone'],
+      isDone: json['isDone'] == 1 ? true : false,
     );
   }
 
@@ -25,7 +25,12 @@ class TodoModel {
       'id': id,
       'title': title,
       'description': description,
-      'isDone': isDone,
+      'isDone': isDone ? 1 : 0,
     };
+  }
+
+  @override
+  String toString() {
+    return 'TodoModel{id: $id, title: $title, description: $description, isDone: $isDone}';
   }
 }
